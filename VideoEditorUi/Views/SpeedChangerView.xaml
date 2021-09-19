@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:MVVMFramework.Controls;assembly=MVVMFramework"
              xmlns:framework="clr-namespace:MVVMFramework.Views;assembly=MVVMFramework"
-             xmlns:CSVideoPlayer="clr-namespace:CSVideoPlayer;assembly=CSVideoPlayer"
+             xmlns:cSVideoPlayer="clr-namespace:VideoPlayer;assembly=VideoPlayer"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="800">
   <Grid Margin="10">
@@ -15,7 +15,7 @@
     </Grid.RowDefinitions>
     <Label AllowDrop="True" Drop="Grid_OnDrop" Height="240" Width="700" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Content="{Binding DragFileLabel}" Visibility="{Binding FileLoaded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvBoolToVisConverter}}" DragEnter="OnDragEnter" DragLeave="OnPreviewDragLeave"/>
     <StackPanel x:Name="stackPanel" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <CSVideoPlayer:VideoPlayerWPF x:Name="player" Visibility="{Binding FileLoaded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="250"/>
+      <cSVideoPlayer:WPFVideoPlayer x:Name="player" Visibility="{Binding FileLoaded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="250"/>
     </StackPanel>
     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
       <Grid>

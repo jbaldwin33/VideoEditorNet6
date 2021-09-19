@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WPFVideoPlayer
+namespace VideoPlayer
 {
     public static class VideoWindowUtility
     {

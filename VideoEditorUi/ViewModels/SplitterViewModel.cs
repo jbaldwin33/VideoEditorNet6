@@ -13,7 +13,6 @@ using MVVMFramework.ViewModels;
 using MVVMFramework.ViewNavigator;
 using VideoUtilities;
 using static VideoUtilities.Enums;
-using static VideoEditorUi.Utilities.UtilityClass;
 using Path = System.IO.Path;
 using MVVMFramework.Localization;
 using System.Windows.Input;
@@ -194,8 +193,8 @@ namespace VideoEditorUi.ViewModels
         public RelayCommand SeekBackCommand => seekBackCommand ?? (seekBackCommand = new RelayCommand(SeekBackCommandExecute, () => FileLoaded));
         public RelayCommand SeekForwardCommand => seekForwardCommand ?? (seekForwardCommand = new RelayCommand(SeekForwardCommandExecute, () => FileLoaded));
         public RelayCommand PlayCommand => playCommand ?? (playCommand = new RelayCommand(PlayCommandExecute, () => FileLoaded));
-        public RelayCommand PauseCommand => pauseCommand ?? (pauseCommand = new RelayCommand(PauseCommandExecute, () => FileLoaded));
-        public RelayCommand StopCommand => stopCommand ?? (stopCommand = new RelayCommand(StopCommandExecute, () => FileLoaded));
+        //public RelayCommand PauseCommand => pauseCommand ?? (pauseCommand = new RelayCommand(PauseCommandExecute, () => FileLoaded));
+        //public RelayCommand StopCommand => stopCommand ?? (stopCommand = new RelayCommand(StopCommandExecute, () => FileLoaded));
         public RelayCommand StartCommand => startCommand ?? (startCommand = new RelayCommand(StartCommandExecute, () => !StartTimeSet && FileLoaded && !TimesImported));
         public RelayCommand EndCommand => endCommand ?? (endCommand = new RelayCommand(EndCommandExecute, () => StartTimeSet && !TimesImported));
         public RelayCommand SplitCommand => splitCommand ?? (splitCommand = new RelayCommand(SplitCommandExecute, () => SectionViewModels?.Count > 0));
@@ -237,8 +236,8 @@ namespace VideoEditorUi.ViewModels
         protected override void DragFilesCallback(string[] files)
         {
             InputPath = files[0];
-            GetDetails(Player, files[0]);
-            Player.Open(new Uri(files[0]));
+            //GetDetails(Player, files[0]);
+            Player.Open(files[0]);
             FileLoaded = true;
             CommandManager.InvalidateRequerySuggested();
             ResetAll();
@@ -276,19 +275,19 @@ namespace VideoEditorUi.ViewModels
         private void StartCommandExecute()
         {
             StartTimeSet = true;
-            StartTime = GetPlayerPosition(Player);
+            StartTime = Player.CurrentTime;
         }
 
         private void EndCommandExecute()
         {
-            if (GetPlayerPosition(Player) <= StartTime)
+            if (Player.CurrentTime <= StartTime)
             {
                 StartTimeSet = false;
                 StartTime = TimeSpan.FromMilliseconds(0);
                 ShowMessage(new MessageBoxEventArgs(new EndTimeAfterStartTimeTranslatable(), MessageBoxEventArgs.MessageTypeEnum.Error, MessageBoxButton.OK, MessageBoxImage.Error));
                 return;
             }
-            EndTime = GetPlayerPosition(Player);
+            EndTime = Player.CurrentTime;
             AddRectangle();
             SectionViewModels.Add(new SectionViewModel(StartTime, EndTime, TextInput));
             TextInput = string.Empty;
@@ -308,8 +307,8 @@ namespace VideoEditorUi.ViewModels
                 return;
 
             InputPath = openFileDialog.FileName;
-            GetDetails(Player, openFileDialog.FileName);
-            Player.Open(new Uri(openFileDialog.FileName));
+            //GetDetails(Player, openFileDialog.FileName);
+            Player.Open(openFileDialog.FileName);
             FileLoaded = true;
             ResetAll();
         }

@@ -59,7 +59,7 @@ namespace VideoEditorUi.ViewModels
                 return;
 
             InputPath = openFileDialog.FileName;
-            Player.Open(new Uri(openFileDialog.FileName));
+            Player.Open(openFileDialog.FileName);
             FileLoaded = true;
         }
 

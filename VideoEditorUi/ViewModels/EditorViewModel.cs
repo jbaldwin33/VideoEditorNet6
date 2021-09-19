@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using CSVideoPlayer;
+using VideoPlayer;
 using MVVMFramework.Localization;
 using MVVMFramework.ViewModels;
 using MVVMFramework.ViewNavigator;
@@ -19,7 +19,7 @@ namespace VideoEditorUi.ViewModels
         protected BaseClass VideoEditor;
         protected ProgressBarViewModel ProgressBarViewModel;
         public Action<string[]> DragFiles;
-        public VideoPlayerWPF Player;
+        public WPFVideoPlayer Player;
 
         public bool FileLoaded
         {
@@ -37,7 +37,7 @@ namespace VideoEditorUi.ViewModels
         public override void OnUnloaded()
         {
             if (Player != null)
-                UtilityClass.ClosePlayer(Player);
+                Player.Close();
             base.OnUnloaded();
         }
 
@@ -87,8 +87,8 @@ namespace VideoEditorUi.ViewModels
         }
 
         protected void PlayCommandExecute() => Player.Play();
-        protected void PauseCommandExecute() => Player.Pause();
-        protected void StopCommandExecute() => Player.Stop();
+        //protected void PauseCommandExecute() => Player.Pause();
+        //protected void StopCommandExecute() => Player.Close();
 
         protected void StartedDownload(object sender, DownloadStartedEventArgs e) => ProgressBarViewModel.UpdateLabel(e.Label);
 
@@ -105,7 +105,7 @@ namespace VideoEditorUi.ViewModels
         {
             CleanUp();
             if (Player != null)
-                UtilityClass.ClosePlayer(Player);
+                Player.Close();
         }
 
         protected virtual void ErrorDownload(object sender, ProgressEventArgs e)

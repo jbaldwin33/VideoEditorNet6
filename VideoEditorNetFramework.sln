@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoEditorUi", "VideoEdito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoUtilities", "VideoUtilities\VideoUtilities.csproj", "{96A8755D-750E-40F7-9677-EB5AFEF558B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFVideoPlayer", "WPFVideoPlayer\WPFVideoPlayer.csproj", "{A0C263AF-CD2D-4A37-9918-41BC4A1CA297}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer", "WPFVideoPlayer\VideoPlayer.csproj", "{A0C263AF-CD2D-4A37-9918-41BC4A1CA297}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

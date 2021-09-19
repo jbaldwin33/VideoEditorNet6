@@ -20,7 +20,7 @@ using System.Xml.Serialization;
 using Panel = System.Windows.Forms.Panel;
 using Keys = System.Windows.Forms.Keys;
 
-namespace WPFVideoPlayer
+namespace VideoPlayer
 {
     /// <summary>
     /// Interaction logic for WPFVideoPlayer.xaml
@@ -101,7 +101,7 @@ namespace WPFVideoPlayer
             Keyboard.KeyPress(Keys.Space);
         }
 
-        public void Stop()
+        public void Close()
         {
             if (!isOpened)
                 return;

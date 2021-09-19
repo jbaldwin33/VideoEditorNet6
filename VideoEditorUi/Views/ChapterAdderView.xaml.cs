@@ -5,7 +5,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using CSVideoPlayer;
+using WPFVideoPlayer;
 using MVVMFramework.ViewNavigator;
 using MVVMFramework.Views;
 using VideoEditorUi.ViewModels;
@@ -31,10 +31,10 @@ namespace VideoEditorUi.Views
             viewModel.Slider = slider;
             timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
             timer.Tick += timer_Tick;
-            InitializePlayer(player);
+            //InitializePlayer(player);
             viewModel.Player = player;
             player.MediaOpened += Player_MediaOpened;
-            player.MediaEnded += Player_MediaEnded;
+            player.MediaClosed += Player_MediaClosed;
             slider.ApplyTemplate();
             thumb.MouseEnter += Thumb_MouseEnter;
         }
@@ -42,7 +42,7 @@ namespace VideoEditorUi.Views
         public override void ViewBaseControl_Unloaded(object sender, RoutedEventArgs e)
         {
             player.MediaOpened -= Player_MediaOpened;
-            player.MediaEnded -= Player_MediaEnded;
+            player.MediaClosed -= Player_MediaClosed;
             timer.Tick -= timer_Tick;
             thumb.MouseEnter -= Thumb_MouseEnter;
             base.ViewBaseControl_Unloaded(sender, e);
@@ -51,7 +51,7 @@ namespace VideoEditorUi.Views
         private void timer_Tick(object sender, EventArgs e)
         {
             if (!isDragging)
-                slider.Value = GetPlayerPosition(player).TotalMilliseconds;
+                slider.Value = player.CurrentTime.TotalMilliseconds;
         }
 
         private void slider_DragStarted(object sender, DragStartedEventArgs e) => isDragging = true;
@@ -60,26 +60,26 @@ namespace VideoEditorUi.Views
         {
             isDragging = false;
             SetPlayerPosition(player, slider.Value);
-            viewModel.PositionChanged?.Invoke(GetPlayerPosition(player));
+            viewModel.PositionChanged?.Invoke(player.CurrentTime);
         }
 
-        private void Player_MediaOpened(object sender, MediaOpenedEventArgs e)
+        private void Player_MediaOpened(object sender, EventArgs e)
         {
-            var ts = player.NaturalDuration();
+            var ts = player.Duration;
             slider.Maximum = ts.TotalMilliseconds;
             slider.SmallChange = 1;
             slider.LargeChange = Math.Min(10, ts.Milliseconds / 10);
             timer.Start();
         }
 
-        private void Player_MediaEnded(object sender, EventArgs e) => player.Stop();
+        private void Player_MediaClosed(object sender, EventArgs e) => player.Close();
 
         private void Thumb_MouseEnter(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 SetPlayerPosition(player, slider.Value);
-                viewModel.PositionChanged?.Invoke(GetPlayerPosition(player));
+                viewModel.PositionChanged?.Invoke(player.CurrentTime);
             }
         }
 

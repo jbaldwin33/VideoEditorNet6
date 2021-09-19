@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WPFVideoPlayer
+namespace VideoPlayer
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Tag

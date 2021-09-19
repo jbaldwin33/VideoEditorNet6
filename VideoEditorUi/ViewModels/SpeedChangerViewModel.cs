@@ -92,7 +92,7 @@ namespace VideoEditorUi.ViewModels
 
         public override void OnUnloaded()
         {
-            UtilityClass.ClosePlayer(Player);
+            Player.Close();
             FileLoaded = false;
             SpeedSlider.ValueChanged -= SpeedSlider_ValueChanged;
             base.OnUnloaded();
@@ -118,7 +118,7 @@ namespace VideoEditorUi.ViewModels
                 return;
 
             InputPath = openFileDialog.FileName;
-            Player.Open(new Uri(openFileDialog.FileName));
+            Player.Open(openFileDialog.FileName);
             FileLoaded = true;
         }
 

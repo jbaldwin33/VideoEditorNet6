@@ -7,8 +7,8 @@
     <ProjectGuid>{A0C263AF-CD2D-4A37-9918-41BC4A1CA297}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WPFVideoPlayer</RootNamespace>
-    <AssemblyName>WPFVideoPlayer</AssemblyName>
+    <RootNamespace>VideoPlayer</RootNamespace>
+    <AssemblyName>VideoPlayer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
